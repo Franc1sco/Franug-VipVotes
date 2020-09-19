@@ -24,7 +24,7 @@ public Plugin myinfo =
 	name = "SM Franug Vip Votes",
 	author = "Franc1sco franug",
 	description = "",
-	version = "0.1",
+	version = "0.2",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -46,6 +46,8 @@ public void OnPluginStart()
 
 public void OnClientDisconnect(int client)
 {
+	if (client < 1)return;
+	
 	if(client == _admin)
 	{
 		ServerCommand("sm_cancelvote");
@@ -173,7 +175,7 @@ public int Handle_VoteMenuGag(Menu menu, MenuAction action, int param1, int para
             
             if (!client || !IsClientInGame(client))return;
             
-            ServerCommand("sm_gag %s 30 Vote gag by %N", steam, _admin);
+            ServerCommand("sm_gag #%s 30 Vote gag by %N", steam, _admin);
             
         }
         
@@ -231,7 +233,7 @@ public int Handle_VoteMenuBan(Menu menu, MenuAction action, int param1, int para
             
             if (!client || !IsClientInGame(client))return;
             
-            ServerCommand("sm_ban %s 30 Vote ban by %N", steam, _admin);
+            ServerCommand("sm_ban #%s 30 Vote ban by %N", steam, _admin);
             
         }
         
@@ -288,7 +290,7 @@ public int Handle_VoteMenuMute(Menu menu, MenuAction action, int param1, int par
             
             if (!client || !IsClientInGame(client))return;
             
-            ServerCommand("sm_mute %s 30 Vote mute by %N", steam, _admin);
+            ServerCommand("sm_mute #%s 30 Vote mute by %N", steam, _admin);
             
         }
         
