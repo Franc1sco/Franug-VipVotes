@@ -24,7 +24,7 @@ public Plugin myinfo =
 	name = "SM Franug Vip Votes",
 	author = "Franc1sco franug",
 	description = "",
-	version = "0.3",
+	version = "0.4",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -175,9 +175,13 @@ public int Handle_VoteMenuGag(Menu menu, MenuAction action, int param1, int para
             
             if (!client || !IsClientInGame(client))return;
             
+            PrintToChatAll("[VipVotes] %N has been gagged by vote during 30 minutes", client);
+           
             ServerCommand("sm_gag #%s 30 Vote gag by %N", steam, _admin);
             
         }
+        else
+        	PrintToChatAll("[VipVotes] Vote was unsuccessful.");
         
         
         _target = 0;
@@ -233,9 +237,13 @@ public int Handle_VoteMenuBan(Menu menu, MenuAction action, int param1, int para
             
             if (!client || !IsClientInGame(client))return;
             
+            PrintToChatAll("[VipVotes] %N has been banned by vote during 30 minutes", client);
+            
             ServerCommand("sm_ban #%s 30 Vote ban by %N", steam, _admin);
             
         }
+        else
+        	PrintToChatAll("[VipVotes] Vote was unsuccessful.");
         
         
         _target = 0;
@@ -290,9 +298,12 @@ public int Handle_VoteMenuMute(Menu menu, MenuAction action, int param1, int par
             
             if (!client || !IsClientInGame(client))return;
             
-            ServerCommand("sm_mute #%s 30 Vote mute by %N", steam, _admin);
+            PrintToChatAll("[VipVotes] %N has been muted by vote during 30 minutes", client);
             
+            ServerCommand("sm_mute #%s 30 Vote mute by %N", steam, _admin);
         }
+        else
+        	PrintToChatAll("[VipVotes] Vote was unsuccessful.");
         
         
         _target = 0;
