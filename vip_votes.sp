@@ -24,7 +24,7 @@ public Plugin myinfo =
 	name = "SM Franug Vip Votes",
 	author = "Franc1sco franug",
 	description = "",
-	version = "0.2",
+	version = "0.3",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -63,11 +63,11 @@ public void OnClientDisconnect(int client)
 		PrintToChatAll("Player voted disconnected so he will be punished");
 		
 		if(_type == gag)
-			ServerCommand("sm_gag %i 30 Vote gag by %N", GetClientUserId(client), _admin);
+			ServerCommand("sm_gag #%i 30 Vote gag by %N", GetClientUserId(client), _admin);
 		else if(_type == mute)
-			ServerCommand("sm_mute %i 30 Vote mute by %N", GetClientUserId(client), _admin);
+			ServerCommand("sm_mute #%i 30 Vote mute by %N", GetClientUserId(client), _admin);
 		else if(_type == ban)
-			ServerCommand("sm_ban %i 30 Vote ban by %N", GetClientUserId(client), _admin);
+			ServerCommand("sm_ban #%i 30 Vote ban by %N", GetClientUserId(client), _admin);
 			
 			
 		_target = 0;
