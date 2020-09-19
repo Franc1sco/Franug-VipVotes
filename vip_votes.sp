@@ -1,7 +1,3 @@
-#include <sourcemod>
-#include <sdktools>
-#include <basecomm>
-
 /*  SM Franug Vip Votes
  *
  *  Copyright (C) 2020 Francisco 'Franc1sco' García
@@ -18,13 +14,28 @@
  * You should have received a copy of the GNU General Public License along with 
  * this program. If not, see http://www.gnu.org/licenses/.
  */
+ 
+#include <sourcemod>
+#include <sdktools>
+#include <basecomm>
+
+/*********************************************************
+ * Ban Player from server
+ *
+ * @param iAdmin	The client index of the admin who is banning the client
+ * @param iTarget	The client index of the player to ban
+ * @param iTime		The time to ban the player for (in minutes, 0 = permanent)
+ * @param sReason	The reason to ban the player from the server
+ * @noreturn
+ *********************************************************/
+native void SBPP_BanPlayer(int iAdmin, int iTarget, int iTime, const char[] sReason);
 
 public Plugin myinfo = 
 {
 	name = "SM Franug Vip Votes",
 	author = "Franc1sco franug",
 	description = "",
-	version = "0.4",
+	version = "0.5",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -67,7 +78,8 @@ public void OnClientDisconnect(int client)
 		else if(_type == mute)
 			ServerCommand("sm_mute #%i 30 Vote mute by %N", GetClientUserId(client), _admin);
 		else if(_type == ban)
-			ServerCommand("sm_ban #%i 30 Vote ban by %N", GetClientUserId(client), _admin);
+			SBPP_BanPlayer(_admin, client, 30, "Vote ban");
+			//ServerCommand("sm_ban #%i 30 Vote ban by %N", GetClientUserId(client), _admin);
 			
 			
 		_target = 0;
@@ -239,7 +251,8 @@ public int Handle_VoteMenuBan(Menu menu, MenuAction action, int param1, int para
             
             PrintToChatAll("[VipVotes] %N has been banned by vote during 30 minutes", client);
             
-            ServerCommand("sm_ban #%s 30 Vote ban by %N", steam, _admin);
+            SBPP_BanPlayer(_admin, client, 30, "Vote ban");
+            //ServerCommand("sm_ban #%s 30 Vote ban by %N", steam, _admin);
             
         }
         else
