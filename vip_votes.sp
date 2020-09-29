@@ -35,7 +35,7 @@ public Plugin myinfo =
 	name = "SM Franug Vip Votes",
 	author = "Franc1sco franug",
 	description = "",
-	version = "0.5",
+	version = "0.6",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -78,7 +78,7 @@ public void OnClientDisconnect(int client)
 		else if(_type == mute)
 			ServerCommand("sm_mute #%i 30 Vote mute by %N", GetClientUserId(client), _admin);
 		else if(_type == ban)
-			SBPP_BanPlayer(_admin, client, 30, "Vote ban");
+			doBan();
 			//ServerCommand("sm_ban #%i 30 Vote ban by %N", GetClientUserId(client), _admin);
 			
 			
@@ -251,7 +251,9 @@ public int Handle_VoteMenuBan(Menu menu, MenuAction action, int param1, int para
             
             PrintToChatAll("[VipVotes] %N has been banned by vote during 30 minutes", client);
             
-            SBPP_BanPlayer(_admin, client, 30, "Vote ban");
+            doBan();
+            	
+            	
             //ServerCommand("sm_ban #%s 30 Vote ban by %N", steam, _admin);
             
         }
@@ -347,4 +349,20 @@ void DoVoteMenuMute(int client, int admin)
     menu.AddItem("no", "No");
     menu.ExitButton = false;
     menu.DisplayVoteToAll(20);
+}
+
+void doBan()
+{
+	bool temp = false;
+	int currentflags;
+	if(!CheckCommandAccess(_admin, "", ADMFLAG_BAN))
+	{
+		currentflags = GetUserFlagBits(_admin);
+		temp = true;
+		SetUserFlagBits(_admin, GetUserFlagBits(_admin) | ADMFLAG_BAN);
+	}
+	SBPP_BanPlayer(_admin, _target, 30, "Vote ban");
+            
+	if(temp)
+		SetUserFlagBits(_admin, currentflags);	
 }
